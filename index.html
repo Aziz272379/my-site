@@ -17,6 +17,7 @@
     --bg:#ffffff;
     --panel:#f6f8fb;
     --border:#e7edf5;
+    --card:#ffffff;
   }
 
   html,body{
@@ -58,14 +59,31 @@
   .muted{color:var(--muted)}
   .two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:flex-start}
 
-  /* ===== Icon rows / lists (no bullets) ===== */
+  /* ===== Cards & icon rows ===== */
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px}
   .icon-row{display:flex;gap:12px;align-items:flex-start;margin:12px 0}
   .icon-row svg{width:24px;height:24px;flex:0 0 24px;color:var(--blue)}
-  .card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px}
 
-  /* ===== Eligibility grid ===== */
-  .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-  .grid-2 .icon-row{margin:0}
+  /* ===== NEW: Benefits grid (2×2) ===== */
+  .benefits-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;
+  }
+  .benefit-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:16px;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .benefit-icon{
+    width:32px;height:32px;flex:0 0 32px;color:var(--blue);
+  }
+  .benefit-title{margin:0;font-weight:700}
+  .benefit-text{margin:4px 0 0;color:var(--muted);font-size:14px}
 
   /* ===== Universities logo grid ===== */
   .uni-block{margin-top:10px}
@@ -78,12 +96,30 @@
   .uni-badge{width:120px;height:40px;border:1px solid var(--border);border-radius:8px;background:#fff}
   .uni-badge text{font-size:14px;font-weight:700;fill:#283c52;dominant-baseline:middle;text-anchor:middle}
 
-  /* ===== Timeline ===== */
-  .timeline{display:grid;grid-template-columns:repeat(7,1fr);gap:16px;margin-top:8px}
-  .milestone{background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center}
-  .milestone svg{width:22px;height:22px;margin:0 auto 8px;color:#2b6ef3}
-  .milestone h3{font-size:14px;margin:0}
-  .milestone p{font-size:12px;margin:4px 0 0;color:var(--muted)}
+  /* ===== NEW: Structured timeline ===== */
+  .timeline-grid{
+    list-style:none;padding:0;margin:12px 0 0;
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0,1fr));
+    gap:16px;
+  }
+  .tl-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:16px;
+    text-align:left;
+    display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;
+  }
+  .tl-step{
+    width:32px;height:32px;border-radius:50%;
+    background:#eaf1ff;color:#1f3b76;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:14px;
+  }
+  .tl-icon{width:28px;height:28px;color:#2b6ef3}
+  .tl-title{margin:0;font-size:16px;font-weight:700}
+  .tl-date{margin:2px 0 0;font-size:13px;color:var(--muted)}
 
   /* ===== CTA block & footer ===== */
   .final-cta{background:#0c2547;color:#fff;text-align:center}
@@ -95,40 +131,30 @@
 
   @media (max-width:1000px){
     .hero-grid,.two-col{grid-template-columns:1fr}
-    .timeline{grid-template-columns:repeat(2,1fr)}
-    .grid-2{grid-template-columns:1fr}
     .uni-logos{grid-template-columns:repeat(3,1fr)}
+    .timeline-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
+  }
+  @media (max-width:640px){
+    .timeline-grid{grid-template-columns:1fr}
+    .benefits-grid{grid-template-columns:1fr}
   }
 </style>
 
 <!-- ===== SVG ICON SPRITE (inline, high-res & recolorable) ===== -->
 <svg aria-hidden="true" width="0" height="0" style="position:absolute">
   <defs>
-    <symbol id="i-case" viewBox="0 0 24 24"><path fill="currentColor" d="M9 7V6a3 3 0 0 1 3-3h0a3 3 0 0 1 3 3v1h4a2 2 0 0 1 2 2v4.1l-9 3l-9-3V9a2 2 0 0 1 2-2h4zm2 0h2V6a1 1 0 0 0-1-1h0a1 1 0 0 0-1 1v1zM3 13.2V18a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4.8l-9 3z"/></symbol>
-    <symbol id="i-mentor" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a4 4 0 1 0-4-4a4 4 0 0 0 4 4m5 1h-2a5 5 0 0 0-10 0H3a7 7 0 0 1 14 0z"/></symbol>
-    <symbol id="i-certificate" viewBox="0 0 24 24"><path fill="currentColor" d="M4 3h16v14H4zM8 21l4-2l4 2v-4H8z"/></symbol>
+    <!-- (existing icons kept) -->
     <symbol id="i-trophy" viewBox="0 0 24 24"><path fill="currentColor" d="M7 3h10v3h3a3 3 0 0 1-3 3a5 5 0 0 1-4 4.9V17h3v2H8v-2h3v-3.1A5 5 0 0 1 7 9a3 3 0 0 1-3-3h3z"/></symbol>
-    <symbol id="i-student" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l9 4l-9 4L3 7l9-4zm0 6l7 3v3l-7-3l-7 3v-3z"/></symbol>
-    <symbol id="i-team" viewBox="0 0 24 24"><path fill="currentColor" d="M7 11a3 3 0 1 0 0-6a3 3 0 0 0 0 6m10 0a3 3 0 1 0 0-6a3 3 0 0 0 0 6M3 21v-2a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v2zm11 0v-2a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v2z"/></symbol>
-    <symbol id="i-majors" viewBox="0 0 24 24"><path fill="currentColor" d="M4 5h16v2H4zm2 4h12v2H6zm-2 4h16v2H4zm2 4h12v2H6z"/></symbol>
-    <symbol id="i-calendar" viewBox="0 0 24 24"><path fill="currentColor" d="M7 2h2v2h6V2h2v2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3V2zm13 8H4v10h16V10z"/></symbol>
+    <symbol id="i-mentor" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a4 4 0 1 0-4-4a4 4 0 0 0 4 4m6 7v-2a4 4 0 0 0-4-4H10a4 4 0 0 0-4 4v2z"/></symbol>
+    <symbol id="i-analysis" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h18v2H3zm2 5h4v10H5zm6 4h4v6h-4zm6-3h4v9h-4z"/></symbol>
+    <symbol id="i-certificate" viewBox="0 0 24 24"><path fill="currentColor" d="M4 3h16v14H4zM8 21l4-2l4 2v-4H8z"/></symbol>
+    <!-- timeline-specific -->
+    <symbol id="i-cal" viewBox="0 0 24 24"><path fill="currentColor" d="M7 2h2v2h6V2h2v2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3V2zm13 8H4v10h16V10z"/></symbol>
     <symbol id="i-brief" viewBox="0 0 24 24"><path fill="currentColor" d="M4 7h16v10H4zM9 7V6a3 3 0 0 1 3-3a3 3 0 0 1 3 3v1z"/></symbol>
     <symbol id="i-upload" viewBox="0 0 24 24"><path fill="currentColor" d="M5 20h14v-2H5zM12 4l5 5h-3v6h-4V9H7z"/></symbol>
     <symbol id="i-present" viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h16v10H4zM6 16h12v4H6z"/></symbol>
     <symbol id="i-mentorship" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a4 4 0 1 0-4-4a4 4 0 0 0 4 4m6 7v-2a4 4 0 0 0-4-4H10a4 4 0 0 0-4 4v2z"/></symbol>
     <symbol id="i-finale" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21l7-18l7 18l-7-4z"/></symbol>
-    <symbol id="i-analysis" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h18v2H3zm2 5h4v10H5zm6 4h4v6h-4zm6-3h4v9h-4z"/></symbol>
-    <symbol id="i-workshop" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h18v4H3zM3 11h18v8H3z"/></symbol>
-    <symbol id="i-deck" viewBox="0 0 24 24"><path fill="currentColor" d="M4 5h16v14H4zM7 8h10v2H7zm0 4h6v2H7z"/></symbol>
-    <symbol id="i-feedback" viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h16v12H7l-3 3z"/></symbol>
-    <symbol id="i-form" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3h14v18H5zM8 7h8v2H8zm0 4h8v2H8zm0 4h6v2H8z"/></symbol>
-    <symbol id="i-member" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a4 4 0 1 0-4-4a4 4 0 0 0 4 4m6 7v-2a6 6 0 0 0-12 0v2z"/></symbol>
-    <symbol id="i-leader" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3 6l6 .5l-4.5 4l1.5 6l-6-3.5L6 18.5l1.5-6L3 8.5L9 8z"/></symbol>
-    <symbol id="i-email" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6h20v12H2zM4 8l8 5l8-5"/></symbol>
-    <symbol id="i-guide" viewBox="0 0 24 24"><path fill="currentColor" d="M6 3h12v18H6zM8 6h8v2H8zm0 4h8v2H8z"/></symbol>
-    <symbol id="i-unlock" viewBox="0 0 24 24"><path fill="currentColor" d="M17 8V7a5 5 0 0 0-10 0h2a3 3 0 1 1 6 0v1h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2z"/></symbol>
-    <symbol id="i-advance" viewBox="0 0 24 24"><path fill="currentColor" d="M4 12h12l-5-5l1.4-1.4L22 13l-9.6 7.4L11 19l5-5H4z"/></symbol>
-    <symbol id="i-chat" viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h16v10H7l-3 3z"/></symbol>
   </defs>
 </svg>
 </head>
@@ -140,7 +166,6 @@
   <div class="container">
     <span class="ribbon-text">Powered by <strong>Aramco</strong> in collaboration with <strong>EY</strong>, <strong>Deloitte</strong>, and <strong>Roland Berger</strong></span>
     <div class="logo-strip" role="img" aria-label="Partner logos">
-      <!-- Replace these placeholder badges with official SVG wordmarks if desired -->
       <svg class="logo-badge" viewBox="0 0 64 24" aria-label="Aramco"><text x="6" y="16">Aramco</text></svg>
       <svg class="logo-badge" viewBox="0 0 64 24" aria-label="EY"><text x="24" y="16">EY</text></svg>
       <svg class="logo-badge" viewBox="0 0 84 24" aria-label="Deloitte"><text x="6" y="16">Deloitte</text></svg>
@@ -156,18 +181,17 @@
       <h1>Consulting Championship 2025</h1>
       <p class="subhead">A national program empowering Saudi university students to solve real business cases judged by global consulting firms.</p>
       <div>
-        <a href="https://consultingchampionship2025.cognistreamer.com" class="cta cta-primary">Register Now</a>
+        <a href="https://consultingchampionship2025.cognistreamer.com" target="_blank" rel="noopener" class="cta cta-primary">Register Now</a>
         <a href="#about" class="cta cta-secondary">How it works</a>
       </div>
       <div class="value-chips" aria-label="Key value points">
-        <span class="chip"><svg><use href="#i-case"/></svg>Real cases</span>
+        <span class="chip"><svg><use href="#i-analysis"/></svg>Real cases</span>
         <span class="chip"><svg><use href="#i-mentor"/></svg>Mentorship & internships</span>
         <span class="chip"><svg><use href="#i-certificate"/></svg>Co-branded certificate</span>
         <span class="chip"><svg><use href="#i-trophy"/></svg>SAR 200,000 in prizes</span>
       </div>
     </div>
 
-    <!-- Hero visual (SVG illustration placeholder) -->
     <figure class="hero-art" aria-label="Students collaborating during a case workshop">
       <svg viewBox="0 0 800 520" role="img" aria-hidden="true">
         <defs>
@@ -190,7 +214,7 @@
 
 <main>
 
-  <!-- ===== About + Why Join ===== -->
+  <!-- ===== About + Why Join (now 2×2 grid) ===== -->
   <section id="about" class="section">
     <div class="container two-col">
       <div>
@@ -199,40 +223,60 @@
         <p class="muted">Built on best practices from leading case competitions and datathons: clear stages, concise benefits, partner-balanced presentation.</p>
       </div>
 
-      <aside class="card" aria-label="Why join">
-        <h3 style="margin:0 0 6px;">Why join?</h3>
-        <div class="icon-row"><svg><use href="#i-trophy"/></svg><div><strong>Win prizes</strong><br/>Total rewards worth <strong>SAR 200,000</strong>.</div></div>
-        <div class="icon-row"><svg><use href="#i-mentor"/></svg><div><strong>Mentorship & internships</strong><br/>Opportunities with Roland Berger, EY & Deloitte</div></div>
-        <div class="icon-row"><svg><use href="#i-analysis"/></svg><div><strong>Build strategy skills</strong><br/>Work on real client-style problems.</div></div>
-        <div class="icon-row"><svg><use href="#i-certificate"/></svg><div><strong>Co-branded certificate</strong><br/>Endorsed by all partner firms.</div></div>
-      </aside>
+      <!-- NEW: benefits grid (prize first) -->
+      <div class="benefits-grid" aria-label="Why join">
+        <div class="benefit-card">
+          <svg class="benefit-icon"><use href="#i-trophy"/></svg>
+          <div>
+            <p class="benefit-title">Win prizes</p>
+            <p class="benefit-text">Total rewards worth <strong>SAR 200,000</strong>.</p>
+          </div>
+        </div>
+        <div class="benefit-card">
+          <svg class="benefit-icon"><use href="#i-mentor"/></svg>
+          <div>
+            <p class="benefit-title">Mentorship & internships</p>
+            <p class="benefit-text">Opportunities with Roland Berger, EY & Deloitte.</p>
+          </div>
+        </div>
+        <div class="benefit-card">
+          <svg class="benefit-icon"><use href="#i-analysis"/></svg>
+          <div>
+            <p class="benefit-title">Build strategy skills</p>
+            <p class="benefit-text">Analyze, problem‑solve, and present like a consultant.</p>
+          </div>
+        </div>
+        <div class="benefit-card">
+          <svg class="benefit-icon"><use href="#i-certificate"/></svg>
+          <div>
+            <p class="benefit-title">Co‑branded certificate</p>
+            <p class="benefit-text">Endorsed by all partner firms.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ===== Eligibility (now with 10 university logos) ===== -->
+  <!-- ===== Eligibility (logos kept) ===== -->
   <section class="section alt">
     <div class="container">
       <h2>Who can participate</h2>
-
-      <!-- Participating universities: logos only -->
       <div class="uni-block" aria-label="Participating universities">
         <div class="uni-title">Participating Universities</div>
         <div class="uni-logos">
-          <!-- Placeholder badges — replace with official SVG wordmarks as needed -->
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Saud University (KSU)"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KSU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Abdulaziz University (KAU)"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KAU</text></svg>
+          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="KSU"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KSU</text></svg>
+          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="KAU"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KAU</text></svg>
           <svg class="uni-badge" viewBox="0 0 120 40" aria-label="KFUPM"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KFUPM</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Imam Abdulrahman Bin Faisal (IAU)"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">IAU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Khalid University (KKU)"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KKU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Faisal University (KFU)"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KFU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Prince Mohammad Bin Fahd (PMU)"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">PMU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Umm Al-Qura (UQU)"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">UQU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Princess Nourah (PNU)"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">PNU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Imam Mohammad Ibn Saud (IMSIU)"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">IMSIU</text></svg>
+          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="IAU"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">IAU</text></svg>
+          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="KKU"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KKU</text></svg>
+          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="KFU"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KFU</text></svg>
+          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="PMU"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">PMU</text></svg>
+          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="UQU"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">UQU</text></svg>
+          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="PNU"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">PNU</text></svg>
+          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="IMSIU"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">IMSIU</text></svg>
         </div>
       </div>
 
-      <!-- Remaining eligibility items (icons, no bullets) -->
       <div class="grid-2" style="margin-top:22px" role="list">
         <div class="icon-row" role="listitem"><svg><use href="#i-team"/></svg><div>Teams of <strong>3–4</strong> members</div></div>
         <div class="icon-row" role="listitem"><svg><use href="#i-majors"/></svg><div>All majors welcome (business, engineering, data, etc.)</div></div>
@@ -241,24 +285,95 @@
     </div>
   </section>
 
-  <!-- ===== Timeline ===== -->
+  <!-- ===== Competition timeline (restructured) ===== -->
   <section class="section">
     <div class="container">
       <h2>Competition timeline</h2>
-      <ol class="timeline">
-        <li class="milestone"><svg><use href="#i-calendar"/></svg><h3>Registration</h3><p>Aug 24 – Sep 10</p></li>
-        <li class="milestone"><svg><use href="#i-brief"/></svg><h3>University visits</h3><p>Aug 25 – Sep 9</p></li>
-        <li class="milestone"><svg><use href="#i-brief"/></svg><h3>Case 1 launch</h3><p>Sep 16 (workshops begin)</p></li>
-        <li class="milestone"><svg><use href="#i-upload"/></svg><h3>Submission</h3><p>Due Oct 18</p></li>
-        <li class="milestone"><svg><use href="#i-present"/></svg><h3>Top 50 live</h3><p>Oct 28 – 30</p></li>
-        <li class="milestone"><svg><use href="#i-mentorship"/></svg><h3>Top 20 + Case 2</h3><p>November</p></li>
-        <li class="milestone"><svg><use href="#i-finale"/></svg><h3>Grand Finale</h3><p>Dec 1 – 2</p></li>
+
+      <ol class="timeline-grid">
+        <li class="tl-card">
+          <div class="tl-step">1</div>
+          <div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <svg class="tl-icon"><use href="#i-cal"/></svg>
+              <p class="tl-title">Registration</p>
+            </div>
+            <p class="tl-date">Aug 24 – Sep 10</p>
+          </div>
+        </li>
+
+        <li class="tl-card">
+          <div class="tl-step">2</div>
+          <div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <svg class="tl-icon"><use href="#i-brief"/></svg>
+              <p class="tl-title">University visits</p>
+            </div>
+            <p class="tl-date">Aug 25 – Sep 9</p>
+          </div>
+        </li>
+
+        <li class="tl-card">
+          <div class="tl-step">3</div>
+          <div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <svg class="tl-icon"><use href="#i-brief"/></svg>
+              <p class="tl-title">Case 1 launch</p>
+            </div>
+            <p class="tl-date">Sep 16 (workshops begin)</p>
+          </div>
+        </li>
+
+        <li class="tl-card">
+          <div class="tl-step">4</div>
+          <div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <svg class="tl-icon"><use href="#i-upload"/></svg>
+              <p class="tl-title">Submission</p>
+            </div>
+            <p class="tl-date">Due Oct 18</p>
+          </div>
+        </li>
+
+        <li class="tl-card">
+          <div class="tl-step">5</div>
+          <div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <svg class="tl-icon"><use href="#i-present"/></svg>
+              <p class="tl-title">Top 50 live</p>
+            </div>
+            <p class="tl-date">Oct 28 – 30</p>
+          </div>
+        </li>
+
+        <li class="tl-card">
+          <div class="tl-step">6</div>
+          <div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <svg class="tl-icon"><use href="#i-mentorship"/></svg>
+              <p class="tl-title">Top 20 + Case 2</p>
+            </div>
+            <p class="tl-date">November</p>
+          </div>
+        </li>
+
+        <li class="tl-card">
+          <div class="tl-step">7</div>
+          <div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <svg class="tl-icon"><use href="#i-finale"/></svg>
+              <p class="tl-title">Grand Finale</p>
+            </div>
+            <p class="tl-date">Dec 1 – 2</p>
+          </div>
+        </li>
       </ol>
+
       <p class="small muted">Final schedule will be confirmed with registered teams.</p>
     </div>
   </section>
 
-  <!-- ===== What You'll Do ===== -->
+  <!-- ===== What You'll Do (unchanged) ===== -->
   <section class="section alt">
     <div class="container two-col">
       <div>
@@ -269,7 +384,6 @@
         <div class="icon-row"><svg><use href="#i-feedback"/></svg><div>Receive structured feedback to sharpen your skills</div></div>
       </div>
       <div class="card">
-        <!-- simple decorative SVG instead of photo -->
         <svg viewBox="0 0 640 360" aria-hidden="true">
           <rect width="640" height="360" rx="14" fill="#eaf1ff"/>
           <rect x="40" y="60" width="560" height="18" rx="8" fill="#c2d5ff"/>
@@ -291,7 +405,7 @@
       <div class="icon-row"><svg><use href="#i-member"/></svg><div>For each member: full name, personal & university emails (<code>.edu.sa</code>), GPA & scale, major, graduation year, phone (+966), optional LinkedIn & CV</div></div>
       <div class="icon-row"><svg><use href="#i-leader"/></svg><div>Designate one <strong>Team Leader</strong></div></div>
       <div style="display:flex;gap:16px;align-items:center;margin-top:12px">
-        <a href="https://consultingchampionship2025.cognistreamer.com" class="cta cta-primary">Register your team</a>
+        <a href="https://consultingchampionship2025.cognistreamer.com" target="_blank" rel="noopener" class="cta cta-primary">Register your team</a>
         <span class="muted">Deadline: <strong>September 10, 2025</strong></span>
       </div>
     </div>
@@ -321,7 +435,7 @@
   <section class="final-cta section">
     <div class="container">
       <h2>Ready to compete?</h2>
-      <a href="https://consultingchampionship2025.cognistreamer.com/" class="cta cta-primary">Register Now</a>
+      <a href="https://consultingchampionship2025.cognistreamer.com" target="_blank" rel="noopener" class="cta cta-primary">Register Now</a>
       <p class="small" style="margin-top:8px;">Form your team today. Limited seats.</p>
     </div>
   </section>
