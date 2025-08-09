@@ -64,7 +64,7 @@
   .icon-row{display:flex;gap:12px;align-items:flex-start;margin:12px 0}
   .icon-row svg{width:24px;height:24px;flex:0 0 24px;color:var(--blue)}
 
-  /* ===== NEW: Benefits grid (2×2) ===== */
+  /* ===== Benefits grid (2×2) ===== */
   .benefits-grid{
     display:grid;
     grid-template-columns:repeat(2,minmax(0,1fr));
@@ -85,18 +85,21 @@
   .benefit-title{margin:0;font-weight:700}
   .benefit-text{margin:4px 0 0;color:var(--muted);font-size:14px}
 
-  /* ===== Universities logo grid ===== */
+  /* ===== Universities list: 2 columns × 5 rows (with full names) ===== */
   .uni-block{margin-top:10px}
   .uni-title{font-size:14px;color:var(--muted);margin:6px 0 10px}
   .uni-logos{
     display:grid;
-    grid-template-columns:repeat(5,minmax(0,1fr));
-    gap:14px; align-items:center; justify-items:center;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px 24px;          /* row gap, column gap */
+    align-items:center;
   }
+  .uni-item{display:flex;align-items:center;gap:12px}
   .uni-badge{width:120px;height:40px;border:1px solid var(--border);border-radius:8px;background:#fff}
   .uni-badge text{font-size:14px;font-weight:700;fill:#283c52;dominant-baseline:middle;text-anchor:middle}
+  .uni-name{font-size:14px}
 
-  /* ===== NEW: Structured timeline ===== */
+  /* ===== Structured timeline ===== */
   .timeline-grid{
     list-style:none;padding:0;margin:12px 0 0;
     display:grid;
@@ -119,7 +122,7 @@
   }
   .tl-icon{width:28px;height:28px;color:#2b6ef3}
   .tl-title{margin:0;font-size:16px;font-weight:700}
-  .tl-date{margin:2px 0 0;font-size:13px;color:var(--muted)}
+  .tl-date{margin:2px 0 0;font-size:13px;color:@muted}
 
   /* ===== CTA block & footer ===== */
   .final-cta{background:#0c2547;color:#fff;text-align:center}
@@ -131,12 +134,12 @@
 
   @media (max-width:1000px){
     .hero-grid,.two-col{grid-template-columns:1fr}
-    .uni-logos{grid-template-columns:repeat(3,1fr)}
     .timeline-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
   }
   @media (max-width:640px){
     .timeline-grid{grid-template-columns:1fr}
     .benefits-grid{grid-template-columns:1fr}
+    .uni-logos{grid-template-columns:1fr} /* stack on phones */
   }
 </style>
 
@@ -220,9 +223,9 @@
       <div>
         <h2>What’s the Consulting Championship?</h2>
         <p>The Consulting Championship 2025 is a flagship national competition developed by <strong>Aramco</strong> with <strong>Deloitte</strong>, <strong>EY</strong>, and <strong>Roland Berger</strong>. Student teams tackle real business cases, attend expert-led workshops, present to judges, and gain exposure to consulting careers.</p>
-             </div>
+      </div>
 
-      <!-- NEW: benefits grid (prize first) -->
+      <!-- benefits grid (prize first) -->
       <div class="benefits-grid" aria-label="Why join">
         <div class="benefit-card">
           <svg class="benefit-icon"><use href="#i-trophy"/></svg>
@@ -242,13 +245,13 @@
           <svg class="benefit-icon"><use href="#i-analysis"/></svg>
           <div>
             <p class="benefit-title">Build strategy skills</p>
-            <p class="benefit-text">Analyze, problem‑solve, and present like a consultant.</p>
+            <p class="benefit-text">Analyze, problem-solve, and present like a consultant.</p>
           </div>
         </div>
         <div class="benefit-card">
           <svg class="benefit-icon"><use href="#i-certificate"/></svg>
           <div>
-            <p class="benefit-title">Co‑branded certificate</p>
+            <p class="benefit-title">Co-branded certificate</p>
             <p class="benefit-text">Endorsed by all partner firms.</p>
           </div>
         </div>
@@ -256,23 +259,63 @@
     </div>
   </section>
 
-  <!-- ===== Eligibility (logos kept) ===== -->
+  <!-- ===== Eligibility (universities list 2×5 with full names) ===== -->
   <section class="section alt">
     <div class="container">
       <h2>Who can participate</h2>
       <div class="uni-block" aria-label="Participating universities">
-        <div class="uni-title">Must be an Undergraduate Student from the below Uiversities</div>
+        <div class="uni-title">Must be an undergraduate student from these universities</div>
+
         <div class="uni-logos">
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Saud University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KSU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Abdulaziz University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KAU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Fahd University of Petroluem & Minerals"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KFUPM</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Imam Abdulrahman Bin Faisal University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">IAU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Khalid University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KKU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Faisal University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KFU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Prince Mohammed Bin Fahd University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">PMU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Umm Al-Qura University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">UQU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Princess Nourah bint Abdulrahman University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">PNU</text></svg>
-          <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Imam Mohammad Ibn Saud Islamic University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">IMSIU</text></svg>
+          <div class="uni-item">
+            <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Saud University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KSU</text></svg>
+            <span class="uni-name">King Saud University</span>
+          </div>
+
+          <div class="uni-item">
+            <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Abdulaziz University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KAU</text></svg>
+            <span class="uni-name">King Abdulaziz University</span>
+          </div>
+
+          <div class="uni-item">
+            <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Fahd University of Petroleum & Minerals"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KFUPM</text></svg>
+            <span class="uni-name">King Fahd University of Petroleum & Minerals</span>
+          </div>
+
+          <div class="uni-item">
+            <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Imam Abdulrahman Bin Faisal University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">IAU</text></svg>
+            <span class="uni-name">Imam Abdulrahman Bin Faisal University</span>
+          </div>
+
+          <div class="uni-item">
+            <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Khalid University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KKU</text></svg>
+            <span class="uni-name">King Khalid University</span>
+          </div>
+
+          <div class="uni-item">
+            <svg class="uni-badge" viewBox="0 0 120 40" aria-label="King Faisal University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">KFU</text></svg>
+            <span class="uni-name">King Faisal University</span>
+          </div>
+
+          <div class="uni-item">
+            <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Prince Mohammad Bin Fahd University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">PMU</text></svg>
+            <span class="uni-name">Prince Mohammad Bin Fahd University</span>
+          </div>
+
+          <div class="uni-item">
+            <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Umm Al-Qura University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">UQU</text></svg>
+            <span class="uni-name">Umm Al-Qura University</span>
+          </div>
+
+          <div class="uni-item">
+            <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Princess Nourah bint Abdulrahman University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">PNU</text></svg>
+            <span class="uni-name">Princess Nourah bint Abdulrahman University</span>
+          </div>
+
+          <div class="uni-item">
+            <svg class="uni-badge" viewBox="0 0 120 40" aria-label="Imam Mohammad Ibn Saud Islamic University"><rect width="120" height="40" rx="8" fill="#fff"/><text x="60" y="23">IMSIU</text></svg>
+            <span class="uni-name">Imam Mohammad Ibn Saud Islamic University</span>
+          </div>
         </div>
       </div>
 
